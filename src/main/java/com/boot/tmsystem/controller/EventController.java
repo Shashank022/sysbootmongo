@@ -1,7 +1,7 @@
 package com.boot.tmsystem.controller;
 
 import com.boot.tmsystem.model.Event;
-import com.boot.tmsystem.repository.EventRepositoryBasic;
+import com.boot.tmsystem.repository.EventRepository;
 import com.boot.tmsystem.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +19,7 @@ import java.util.List;
 public class EventController {
 
         @Autowired
-        EventRepositoryBasic eventRepository;
+        EventRepository eventRepository;
 
         @Autowired
         EventService eventService;
