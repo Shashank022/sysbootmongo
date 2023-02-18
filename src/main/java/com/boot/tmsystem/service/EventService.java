@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -29,11 +30,12 @@ public class EventService {
         return mongoTemplate.remove(new Query(Criteria.where("event_id").is(id)), Event.class);
     }
 
-//    public List<Event> getEventsBefore(Date startDate, Date endDate){
-//        Query query = new Query();
-//        query.addCriteria(Criteria.where("startDate").gte(startDate).lt(endDate));
-////        List<Event> listedDates = mongoTemplate.execute
-//        return listedDates;
-//    }
+    public List<Event> getEventsOndate(String startDate){
+        startDate = startDate.replace("-","/");
+        Query query = new Query();
+        query.addCriteria(new Criteria().andOperator(Criteria.where("created_date").is(startDate)));
+        List<Event> listedDates = mongoTemplate.find(query,Event.class);
+        return listedDates;
+    }
 
 }

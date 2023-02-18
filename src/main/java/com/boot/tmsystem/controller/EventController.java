@@ -43,11 +43,10 @@ public class EventController {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        @GetMapping("/eventsbetweendates/{startDate}")
+        @GetMapping("/eventsondate/{startDate}")
         public ResponseEntity<List<Event>> eventBetweenDates(@PathVariable("startDate") String startDate) throws ParseException {
-                List<Event> eventList = eventRepository.findAllEvents(new Date(),new SimpleDateFormat("dd-MM-yyyy").parse(startDate));
-                System.out.println("eventList"+ eventList);
-                return new ResponseEntity<List<Event>>(eventList, HttpStatus.NOT_FOUND);
+                List<Event> eventList = eventService.getEventsOndate(startDate);
+                return new ResponseEntity<>(eventList, HttpStatus.NOT_FOUND);
         }
 
         @DeleteMapping("/events")
