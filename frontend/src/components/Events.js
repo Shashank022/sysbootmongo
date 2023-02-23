@@ -48,8 +48,7 @@ export default function Events() {
     const handleClose = () => setOpen(false);
 
     useEffect(() => {
-        const url = 'http://localhost:5022/api/events';
-        axios.get(url).then((response) => {
+        axios.get('http://localhost:5022/api/events').then((response) => {
             setEvents(response.data);
         }).catch((error) => { console.log(error); });
     }, []);

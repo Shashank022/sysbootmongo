@@ -2,9 +2,10 @@ import * as React from 'react';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import CalendarPicker from '@mui/lab/CalendarPicker';
+import { useState } from 'react';
 
 export default function SubComponentsPickers() {
-    const [date, setDate] = React.useState(new Date());
+    const [date, setDate] = useState(new Date());
 
     const divStyle = {
         color: 'blue',

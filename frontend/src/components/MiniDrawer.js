@@ -202,7 +202,7 @@ export default function MiniDrawer() {
       <Box component="main" sx={{ flexGrow: 1, p: 3, paddingTop: '20px' }}>
 
         <DrawerHeader />
-        <SearchBar />
+        {/* <SearchBar /> */}
         <Events />
         <UserDetails />
         <Teams />
