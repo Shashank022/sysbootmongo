@@ -91,8 +91,7 @@ export default function Teams() {
                                 rowsPerPage={rowsPerPage}
                                 page={page}
                                 onPageChange={handleChangePage}
-                                onRowsPerPageChange={handleChangeRowsPerPage}>
-                            </TablePagination>
+                                onRowsPerPageChange={handleChangeRowsPerPage} />
                         </TableRow>
                     </TableFooter>
                 </Table>

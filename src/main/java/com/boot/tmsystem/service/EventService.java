@@ -1,14 +1,17 @@
 package com.boot.tmsystem.service;
 
 import com.boot.tmsystem.model.Event;
+import com.boot.tmsystem.repository.EventRepository;
 import com.mongodb.MongoException;
 import com.mongodb.client.result.DeleteResult;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -17,6 +20,9 @@ public class EventService {
 
     @Autowired
     MongoTemplate mongoTemplate;
+
+    @Autowired
+    EventRepository eventRepository;
 
     public List<Event> getbyIdQuery(long id) throws MongoException {
         Query query = new Query();
@@ -40,8 +46,21 @@ public class EventService {
 
     public List<Event> getLimitedEventsOnly(){
         Query query = new Query();
-        query.addCriteria(Criteria.where("event_id").lt(100).gt(20));
+        query.addCriteria(Criteria.where("event_id").lt(100).gt(90));
         return mongoTemplate.find(query,Event.class);
+    }
+
+    public void updateAnEvent(String id, Event newEvent) throws ParseException {
+        if(StringUtils.isEmpty(id) && newEvent != null){
+            Integer data = Integer.parseInt(id);
+            eventRepository.findById(data)
+                    .map(nEvent -> {
+                        nEvent.setEvent_name(newEvent.getEvent_name());
+                        nEvent.setUpdated_by(newEvent.getUpdated_by());
+                        return eventRepository.save(nEvent);
+                    })
+                    .orElseGet(() -> eventRepository.save(newEvent));
+        }
     }
 
 }

@@ -74,7 +74,7 @@ export default function UserDetails() {
                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             .map((row) => (
                                 <StyledTableRow key={row.user_id}>
-                                    <StyledTableCell align="center">{row.id}</StyledTableCell>
+                                    <StyledTableCell align="center">{row.user_id}</StyledTableCell>
                                     <StyledTableCell align="center">{row.firstname}</StyledTableCell>
                                     <StyledTableCell align="center">{row.email}</StyledTableCell>
                                     <StyledTableCell align="center">{row.gender}</StyledTableCell>

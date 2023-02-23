@@ -9,8 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -47,6 +45,12 @@ public class EventController {
         public ResponseEntity<List<Event>> eventBetweenDates(@PathVariable("startDate") String startDate) throws ParseException {
                 List<Event> eventList = eventService.getEventsOndate(startDate);
                 return new ResponseEntity<>(eventList, HttpStatus.NOT_FOUND);
+        }
+
+        @PutMapping("/event/update")
+        public ResponseEntity<Object> eventupdate(@RequestBody Event newEvent) throws ParseException {
+                eventService.updateAnEvent(newEvent.getEvent_id(), newEvent);
+                return new ResponseEntity<>(HttpStatus.OK);
         }
 
         @DeleteMapping("/events")

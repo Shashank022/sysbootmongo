@@ -17,7 +17,7 @@ import java.util.Date;
 public class Event {
 
 	@Id
-	private BigInteger _id;
+	private BigInteger id;
 	private String event_id;
 	private String event_name;
 	private String created_by;

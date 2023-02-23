@@ -10,7 +10,8 @@ import Grid from '@mui/material/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -19,6 +20,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
+const notify = () => toast("Updated the Message Sucessfully!");
 const style = {
     position: 'absolute',
     top: '50%',
@@ -36,13 +38,13 @@ export default function Events() {
     const classes = useStyles();
 
     const [open, setOpen] = useState(false);
-    //const [newEvent, setNewEvent] = useState({ '': '' });
+    const [newEvent, setNewEvent] = useState({ '': '' });
     const [updateEvent, setUpdateEvent] = useState({ '': '' });
     const handleOpen = row => () => {
         console.log("row", row);
         setOpen(true);
         setUpdateEvent(row);
-        //setNewEvent({ event: row });
+        setNewEvent({ event: row });
     };
 
     const handleClose = () => setOpen(false);
@@ -54,7 +56,12 @@ export default function Events() {
     }, []);
 
     function handleClick(row) {
-        console.log("row", row);
+        axios.put('http://localhost:5022/api/event/update', row).then((resp) => {
+            if (resp) {
+                notify();
+            }
+        }).catch((error) => { console.log(error); });
+        handleClose();
     }
 
     if (!events) return null;
@@ -67,7 +74,7 @@ export default function Events() {
                 justify="flex-start"
                 alignItems="flex-start">
                 {events.map((row) => (
-                    <Grid item xs={12} sm={6} md={3} key={row.id}>
+                    <Grid item xs={12} sm={6} md={3} key={row.event_id}>
                         <Card sx={{ maxWidth: 800 }}>
                             <CardContent>
                                 <Typography gutterBottom variant="h5" component="div">
@@ -100,6 +107,18 @@ export default function Events() {
                         </Card>
                     </Grid>
                 ))}
+                <ToastContainer
+                    position="top-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="colored"
+                />
             </Grid>
         </div>
     );

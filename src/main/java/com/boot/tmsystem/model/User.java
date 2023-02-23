@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.math.BigInteger;
+
 
 @Data
 @AllArgsConstructor
@@ -14,7 +16,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class User {
 
     @Id
-    private int id;
+    private BigInteger id;
+    private int user_id;
     private String firstname;
     private String lastname;
     private String email;

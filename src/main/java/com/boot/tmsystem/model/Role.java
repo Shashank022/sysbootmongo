@@ -15,7 +15,7 @@ import java.math.BigInteger;
 public class Role {
 
     @Id
-    private BigInteger _id;
+    private BigInteger id;
     private int roleid;
     private String role_name;
     private String role_user_id;
