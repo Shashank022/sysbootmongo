@@ -27,7 +27,7 @@ public class EventController {
 
         @GetMapping("/events")
         public ResponseEntity<List<Event>> getAllEvents() {
-                List<Event> eventList = eventRepository.getLimitedEvents();
+                List<Event> eventList = eventService.getLimitedEventsOnly();
                 return new ResponseEntity<>(eventList, HttpStatus.OK);
         }
 

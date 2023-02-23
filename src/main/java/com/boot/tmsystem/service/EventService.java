@@ -38,4 +38,10 @@ public class EventService {
         return listedDates;
     }
 
+    public List<Event> getLimitedEventsOnly(){
+        Query query = new Query();
+        query.addCriteria(Criteria.where("event_id").lt(100).gt(20));
+        return mongoTemplate.find(query,Event.class);
+    }
+
 }
