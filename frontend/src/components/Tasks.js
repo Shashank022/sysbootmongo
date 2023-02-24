@@ -52,10 +52,10 @@ export default function Tasks() {
             setTasks(response.data)
         }).then(
             //console.log(response.data);
-            axios.get("http://localhost:5022/api/eventswithteams").then((response) => {
-                setEventtasks(response.data);
-                console.log("response.data", response.data);
-            })
+            // axios.get("http://localhost:5022/api/eventswithteams").then((response) => {
+            //     setEventtasks(response.data);
+            //     console.log("response.data", response.data);
+            // })
         ).catch((err) => { console.log(err); });
     }, []);
 

@@ -2,6 +2,7 @@ package com.boot.tmsystem.controller;
 
 import com.boot.tmsystem.model.User;
 import com.boot.tmsystem.repository.UserRepository;
+import com.boot.tmsystem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,9 +21,18 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    UserService userService;
+
     @GetMapping("/users")
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> userList = userRepository.findAll();
         return new ResponseEntity<>(userList, HttpStatus.OK);
+    }
+
+    @GetMapping("/emaillist")
+    public ResponseEntity<List<String>> getAllUsersEmailList() {
+        List<String> userEmailList = userService.getUsersEmialList();
+        return new ResponseEntity<List<String>>(userEmailList,HttpStatus.OK);
     }
 }

@@ -25,7 +25,7 @@ import InboxIcon from '@mui/icons-material/Inbox';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import SearchBar from 'material-ui-search-bar';
+import SearchBar from './SearchBar';
 
 const drawerWidth = 240;
 
