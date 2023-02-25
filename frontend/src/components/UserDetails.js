@@ -47,7 +47,7 @@ export default function UserDetails() {
     };
 
     useEffect(() => {
-        axios.get("http://localhost:5022/api//users").then((response) => {
+        axios.get("http://localhost:5022/api/users").then((response) => {
             setUsers(response.data);
             console.log("User Details:", response.data);
         }).catch((error) => { console.log(error); });

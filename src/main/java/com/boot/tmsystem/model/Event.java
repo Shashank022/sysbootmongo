@@ -18,7 +18,7 @@ public class Event {
 
 	@Id
 	private BigInteger id;
-	private String event_id;
+	private int event_id;
 	private String event_name;
 	private String created_by;
 	private Date created_date;

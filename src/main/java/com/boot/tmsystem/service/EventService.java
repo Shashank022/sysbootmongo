@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EventService {
@@ -50,16 +51,19 @@ public class EventService {
         return mongoTemplate.find(query,Event.class);
     }
 
-    public void updateAnEvent(String id, Event newEvent) throws ParseException {
-        if(StringUtils.isEmpty(id) && newEvent != null){
-            Integer data = Integer.parseInt(id);
-            eventRepository.findById(data)
-                    .map(nEvent -> {
+    public void updateAnEvent(int id, Event newEvent) throws MongoException {
+        if(Optional.ofNullable(id).orElse(0) != 0 && newEvent != null){
+            List<Event> eve = getbyIdQuery(id);
+                    eve.forEach((nEvent)->{
+                        nEvent.setId(nEvent.getId());
                         nEvent.setEvent_name(newEvent.getEvent_name());
                         nEvent.setUpdated_by(newEvent.getUpdated_by());
-                        return eventRepository.save(nEvent);
-                    })
-                    .orElseGet(() -> eventRepository.save(newEvent));
+                        nEvent.setCreated_by(newEvent.getCreated_by());
+                        nEvent.setCreated_date(newEvent.getCreated_date());
+                        nEvent.setEvent_id(newEvent.getEvent_id());
+                        nEvent.setTeam_id(newEvent.getTeam_id());
+                        eventRepository.save(nEvent);
+                    });
         }
     }
 

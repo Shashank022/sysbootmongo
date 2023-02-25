@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.util.List;
+import java.util.Objects;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -49,8 +50,12 @@ public class EventController {
 
         @PutMapping("/event/update")
         public ResponseEntity<Object> eventupdate(@RequestBody Event newEvent) throws ParseException {
-                eventService.updateAnEvent(newEvent.getEvent_id(), newEvent);
-                return new ResponseEntity<>(HttpStatus.OK);
+                System.out.println("newEvent"+newEvent);
+                if(!Objects.isNull(newEvent)){
+                    eventService.updateAnEvent(newEvent.getEvent_id(), newEvent);
+                        return new ResponseEntity<>(HttpStatus.OK);
+                }
+                return null;
         }
 
         @DeleteMapping("/events")
