@@ -1,7 +1,6 @@
 package com.boot.tmsystem.controller;
 
 import com.boot.tmsystem.model.Event;
-import com.boot.tmsystem.repository.EventRepository;
 import com.boot.tmsystem.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,8 +16,6 @@ import java.util.Objects;
 @RequestMapping("/api")
 public class EventController {
 
-        @Autowired
-        EventRepository eventRepository;
 
         @Autowired
         EventService eventService;
@@ -49,7 +46,7 @@ public class EventController {
         }
 
         @PutMapping("/event/update")
-        public ResponseEntity<Object> eventupdate(@RequestBody Event newEvent) throws ParseException {
+        public ResponseEntity<Event> eventupdate(@RequestBody Event newEvent) throws ParseException {
                 System.out.println("newEvent"+newEvent);
                 if(!Objects.isNull(newEvent)){
                     eventService.updateAnEvent(newEvent.getEvent_id(), newEvent);

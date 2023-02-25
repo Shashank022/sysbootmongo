@@ -16,7 +16,7 @@ import java.math.BigInteger;
 public class User {
 
     @Id
-    private BigInteger id;
+    private BigInteger _id;
     private int user_id;
     private String firstname;
     private String lastname;

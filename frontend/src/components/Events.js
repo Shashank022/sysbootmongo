@@ -60,7 +60,13 @@ export default function Events() {
             if (resp) {
                 notify();
             }
-        }).catch((error) => { console.log(error); });
+        }).then(() => {
+            axios.get('http://localhost:5022/api/events').then((response) => {
+                setEvents(response.data);
+            }).catch((error) => { console.log(error); });
+        })
+
+            .catch((error) => { console.log(error); });
         handleClose();
     }
 

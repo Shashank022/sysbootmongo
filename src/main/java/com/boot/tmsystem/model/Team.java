@@ -14,7 +14,7 @@ import java.math.BigInteger;
 @Document
 public class Team {
     @Id
-    private BigInteger id;
+    private BigInteger _id;
     private int team_id;
     private String team_name;
     private int event_id;
