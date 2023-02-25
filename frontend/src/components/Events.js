@@ -55,8 +55,8 @@ export default function Events() {
         }).catch((error) => { console.log(error); });
     }, []);
 
-    function handleClick(row) {
-        axios.put('http://localhost:5022/api/event/update', row).then((resp) => {
+    function handleClick() {
+        axios.put('http://localhost:5022/api/event/update', updateEvent).then((resp) => {
             if (resp) {
                 notify();
             }
@@ -65,9 +65,20 @@ export default function Events() {
                 setEvents(response.data);
             }).catch((error) => { console.log(error); });
         })
-
             .catch((error) => { console.log(error); });
         handleClose();
+    }
+
+    function editTask(name, event) {
+        setUpdateEvent({
+            'event_name': name,
+            'created_date': event.created_date,
+            'event_id': +event.event_id,
+            'created_by': event.created_by,
+            'id': event.id,
+            'team_id': event.team_id,
+            'updated_by': event.updated_by,
+        });
     }
 
     if (!events) return null;
@@ -98,13 +109,13 @@ export default function Events() {
                                     aria-labelledby="modal-modal-title"
                                     aria-describedby="modal-modal-description">
                                     <Box sx={style}>
-                                        <Typography gutterBottom variant="h5" component="div">
+                                        <Typography gutterBottom variant="h5" component="div" contentEditable="true" onInput={e => editTask(e.currentTarget.textContent, updateEvent)} suppressContentEditableWarning={true}>
                                             {updateEvent.event_name}
                                         </Typography>
                                         <Typography variant="body2" color="text.secondary">
                                             {updateEvent.created_by} - {moment(updateEvent.created_date).calendar()} - {updateEvent.updated_by}
                                         </Typography><br></br>
-                                        <Button size="small" onClick={() => handleClick(row)}>Update</Button>
+                                        <Button size="small" onClick={() => handleClick()}>Update</Button>
                                         <Button size="small" onClick={handleClose}>Close</Button>
                                     </Box>
                                 </Modal>
