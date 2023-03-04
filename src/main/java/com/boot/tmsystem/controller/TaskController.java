@@ -18,7 +18,7 @@ import java.util.List;
 public class TaskController {
 
     @Autowired
-    TaskRepository taskRepository;
+    private TaskRepository taskRepository;
 
     @GetMapping("/tasks")
     public ResponseEntity<List<Task>> getAllEvents() {

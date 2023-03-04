@@ -19,7 +19,7 @@ import java.util.List;
 @RequestMapping("/api")
 public class TeamController {
     @Autowired
-    TeamRepository teamRepository;
+    private TeamRepository teamRepository;
 
     @GetMapping("/teams")
     public ResponseEntity<List<Team>> getAllEvents() {

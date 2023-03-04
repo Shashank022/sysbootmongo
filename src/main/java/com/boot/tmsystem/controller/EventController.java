@@ -1,6 +1,7 @@
 package com.boot.tmsystem.controller;
 
 import com.boot.tmsystem.model.Event;
+import com.boot.tmsystem.repository.EventRepository;
 import com.boot.tmsystem.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -20,11 +22,15 @@ public class EventController {
         @Autowired
         EventService eventService;
 
+        @Autowired
+        private EventRepository eventRepository;
+
 
         @GetMapping("/events")
         public ResponseEntity<List<Event>> getAllEvents() {
-                List<Event> eventList = eventService.getLimitedEventsOnly();
-                return new ResponseEntity<>(eventList, HttpStatus.OK);
+//                List<Event> eventList = eventService.getLimitedEventsOnly();
+                List<Event> eventList2 = eventRepository.findAll().stream().limit(10).collect(Collectors.toList());
+                return new ResponseEntity<>(eventList2, HttpStatus.OK);
         }
 
         @GetMapping("/events/{id}")
@@ -45,6 +51,16 @@ public class EventController {
                 return new ResponseEntity<>(eventList, HttpStatus.NOT_FOUND);
         }
 
+
+        @PostMapping("/postevent")
+        public ResponseEntity<Event> postnewevent(@RequestBody Event newEvent) throws ParseException {
+                System.out.println("newEvent"+newEvent);
+                if(!Objects.isNull(newEvent)){
+                        eventRepository.save(newEvent);
+                        return new ResponseEntity<>(HttpStatus.OK);
+                }
+                return null;
+        }
         @PutMapping("/event/update")
         public ResponseEntity<Event> eventupdate(@RequestBody Event newEvent) throws ParseException {
                 System.out.println("newEvent"+newEvent);

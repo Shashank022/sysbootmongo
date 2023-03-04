@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -19,20 +22,23 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
     UserService userService;
 
     @GetMapping("/users")
     public ResponseEntity<List<User>> getAllUsers() {
-        List<User> userList = userRepository.findAll();
+        List<User> userList = userRepository.findAll().stream().limit(100).collect(Collectors.toList());
         return new ResponseEntity<>(userList, HttpStatus.OK);
     }
 
     @GetMapping("/emaillist")
     public ResponseEntity<List<String>> getAllUsersEmailList() {
         List<String> userEmailList = userService.getUsersEmialList();
+        Map<String, Long> listMap = userEmailList.stream()
+                .collect(Collectors.groupingBy(Function.identity(),Collectors.counting()));
+        System.out.println(listMap);
         return new ResponseEntity<List<String>>(userEmailList,HttpStatus.OK);
     }
 }

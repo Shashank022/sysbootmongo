@@ -20,7 +20,7 @@ import java.util.List;
 public class RoleController {
 
     @Autowired
-    RoleRepository roleRepository;
+    private RoleRepository roleRepository;
 
     @GetMapping("/roles")
     public ResponseEntity<List<Role>> getAllRoles() {

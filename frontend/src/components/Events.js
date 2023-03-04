@@ -12,6 +12,7 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import AddEvent from './AddEvent';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -36,18 +37,23 @@ const style = {
 export default function Events() {
     const [events, setEvents] = useState([]);
     const classes = useStyles();
+    const [hasRender, setRender] = useState(false);
+    const onShow = React.useCallback(() => setRender(true), []);
 
     const [open, setOpen] = useState(false);
+    // const [openModel, setOpenModel] = useState(false);
+
     const [newEvent, setNewEvent] = useState({ '': '' });
     const [updateEvent, setUpdateEvent] = useState({ '': '' });
     const handleOpen = row => () => {
-        console.log("row", row);
+        // console.log("row", row);
         setOpen(true);
         setUpdateEvent(row);
         setNewEvent({ event: row });
     };
 
     const handleClose = () => setOpen(false);
+    // const handleModelClose = () => setOpenModel(false);
 
     useEffect(() => {
         axios.get('http://localhost:5022/api/events').then((response) => {
@@ -67,6 +73,10 @@ export default function Events() {
         })
             .catch((error) => { console.log(error); });
         handleClose();
+    }
+
+    function openInfoModal() {
+        // setOpenModel(true);
     }
 
     function editTask(name, event) {
@@ -102,7 +112,7 @@ export default function Events() {
                                 </Typography>
                             </CardContent>
                             <CardActions>
-                                <Button size="small" onClick={handleOpen(row)}>Info</Button>
+                                <Button size="small" onClick={handleOpen(row)}>Update</Button>
                                 <Modal
                                     open={open}
                                     onClose={handleClose}
@@ -119,14 +129,14 @@ export default function Events() {
                                         <Button size="small" onClick={handleClose}>Close</Button>
                                     </Box>
                                 </Modal>
-                                <Button size="small">More</Button>
+                                <Button size="small" onClick={openInfoModal()} >More Info</Button>
                             </CardActions>
                         </Card>
                     </Grid>
                 ))}
                 <ToastContainer
                     position="top-right"
-                    autoClose={5000}
+                    autoClose={2000}
                     hideProgressBar={false}
                     newestOnTop={false}
                     closeOnClick
@@ -134,9 +144,14 @@ export default function Events() {
                     pauseOnFocusLoss
                     draggable
                     pauseOnHover
-                    theme="colored"
+                    toastStyle={{ backgroundColor: "lightgreen" }}
                 />
+                <Card sx={{ maxWidth: 800 }}>
+                    <Button size="small" onClick={onShow}>Add an Event</Button>
+                    {hasRender && <AddEvent />}
+                </Card>
             </Grid>
+
         </div>
     );
 };
