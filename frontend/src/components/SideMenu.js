@@ -13,20 +13,20 @@ export default function SideMenu() {
                         <Link to="/">Home</Link>
                     </li>
                     <li>
-                        <Link to="/events">Events</Link>
+                        <Link to="/api/events">Events</Link>
                     </li>
                     <li>
-                        <Link to="/teams">Teams</Link>
+                        <Link to="/api/teams">Teams</Link>
                     </li>
                     <li>
-                        <Link to="/tasks">Tasks</Link>
+                        <Link to="/api/tasks">Tasks</Link>
                     </li>
                 </ul>
                 <Routes>
-                    <Route exact path='/events' element={< Events />}></Route>
-                    <Route exact path='/events' element={< Events />}></Route>
-                    <Route exact path='/teams' element={< Teams />}></Route>
-                    <Route exact path='/tasks' element={< Tasks />}></Route>
+                    <Route exact path='/api/events' element={< Events />}></Route>
+                    <Route exact path='/api/events' element={< Events />}></Route>
+                    <Route exact path='/api/teams' element={< Teams />}></Route>
+                    <Route exact path='/api/tasks' element={< Tasks />}></Route>
                 </Routes>
             </div>
         </Router>
