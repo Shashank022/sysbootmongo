@@ -1,0 +1,16 @@
+server:
+  port: 5022
+
+spring:
+  devtools:
+    livereload:
+      enabled: true
+
+  data:
+    mongodb:
+      uri: mongodb://127.0.0.1:27018/tmsysboot
+      repositories:
+        type: AUTO
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
