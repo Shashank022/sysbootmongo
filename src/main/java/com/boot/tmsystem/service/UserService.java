@@ -21,13 +21,13 @@ public class UserService {
     MongoTemplate mongoTemplate;
 
 
-    public List<String> getUsersEmialList() throws MongoException {
+    public List<String> getUsersEmailList() throws MongoException {
         try {
             List<User> userList = mongoTemplate.findAll(User.class);
             List<String> userEmailList = new ArrayList<>();
 //            Arrays.sort(userList.stream().toArray());
             userList.stream().filter((p) -> userEmailList.add(p.getEmail())).collect(Collectors.toList());
-            userEmailList.sort((i1,i2) -> i1.compareTo(i2));
+            userEmailList.sort(String::compareTo);
             return userEmailList;
         } catch (Exception e) {
             System.out.println("Information is still needed..!!!!!");

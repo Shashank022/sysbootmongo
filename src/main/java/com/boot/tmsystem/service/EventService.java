@@ -10,10 +10,10 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
 import java.text.ParseException;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class EventService {
@@ -44,9 +44,11 @@ public class EventService {
         return listedDates;
     }
 
-    public List<Event> getLimitedEventsOnly(){
+    public List<Event> getLimitedEventsOnly() throws ParseException {
         Query query = new Query();
-        query.addCriteria(Criteria.where("event_id").lt(100).gt(90));
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        query.addCriteria(Criteria.where("created_date").gt(dateFormat.format(new Date())));
+        System.out.println(query);
         return mongoTemplate.find(query,Event.class);
     }
 

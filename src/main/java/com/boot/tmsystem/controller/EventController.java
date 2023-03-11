@@ -27,10 +27,10 @@ public class EventController {
 
 
         @GetMapping("/events")
-        public ResponseEntity<List<Event>> getAllEvents() {
-//                List<Event> eventList = eventService.getLimitedEventsOnly();
-                List<Event> eventList2 = eventRepository.findAll().stream().limit(10).collect(Collectors.toList());
-                return new ResponseEntity<>(eventList2, HttpStatus.OK);
+        public ResponseEntity<List<Event>> getAllEvents() throws ParseException {
+                // List<Event> eventList = eventService.getLimitedEventsOnly();
+                List<Event> eventList = eventRepository.findAll().stream().limit(10).collect(Collectors.toList());
+                        return new ResponseEntity<>(eventList, HttpStatus.OK);
         }
 
         @GetMapping("/events/{id}")

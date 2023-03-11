@@ -35,10 +35,9 @@ public class UserController {
 
     @GetMapping("/emaillist")
     public ResponseEntity<List<String>> getAllUsersEmailList() {
-        List<String> userEmailList = userService.getUsersEmialList();
+        List<String> userEmailList = userService.getUsersEmailList();
         Map<String, Long> listMap = userEmailList.stream()
                 .collect(Collectors.groupingBy(Function.identity(),Collectors.counting()));
-        System.out.println(listMap);
         return new ResponseEntity<List<String>>(userEmailList,HttpStatus.OK);
     }
 }
