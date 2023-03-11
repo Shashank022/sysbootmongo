@@ -40,26 +40,27 @@ const style = {
 export default function Events() {
     const [events, setEvents] = useState([]);
     const classes = useStyles();
-    const [hasRender, setRender] = useState(false);
-    const onShow = React.useCallback(() => setRender(true), []);
-
     const [open, setOpen] = useState(false);
-    // const [openModel, setOpenModel] = useState(false);
-
     const [newEvent, setNewEvent] = useState({ '': '' });
     const [updateEvent, setUpdateEvent] = useState({ '': '' });
+
+    useEffect(() => {
+        axios.get('http://localhost:5022/api/events').then((response) => {
+            setEvents(response.data);
+        }).catch((error) => { console.log(error); });
+    }, []);
+
+
     const handleOpen = row => () => {
         // console.log("row", row);
         setOpen(true);
         setUpdateEvent(row);
         setNewEvent({ event: row });
     };
-    const [bar, setBar] = useState('');
     const [searchQuery, setSearchQuery] = useState("");
     const [searched, setSearched] = useState("");
 
     useEffect(() => {
-
         if (searchQuery) {
             setSearched(
                 events.filter((event) => {
@@ -68,20 +69,12 @@ export default function Events() {
                 }));
 
         } else {
-            setEvents(events);
+            setSearched(events);
         }
 
-    }, [searchQuery])
-
+    }, [searchQuery, events])
 
     const handleClose = () => setOpen(false);
-    // const handleModelClose = () => setOpenModel(false);
-
-    useEffect(() => {
-        axios.get('http://localhost:5022/api/events').then((response) => {
-            setEvents(response.data);
-        }).catch((error) => { console.log(error); });
-    }, []);
 
     function handleClick() {
         axios.put('http://localhost:5022/api/event/update', updateEvent).then((resp) => {
@@ -120,10 +113,7 @@ export default function Events() {
                 onChange={(event) => setSearchQuery(event.target.value)}
                 className="search"
                 placeholder="Search Events...!!"
-
             />
-
-
             <p></p>
             <Grid
                 container
@@ -131,9 +121,8 @@ export default function Events() {
                 direction="row"
                 justify="flex-start"
                 alignItems="flex-start">
-
                 {
-                    searchQuery.length > 0 ? (
+                    searchQuery.length > 0 && searched != null ? (
                         searched.map((row) => {
                             return (
                                 <Grid item xs={12} sm={6} md={3} key={row.event_id}>
@@ -210,40 +199,6 @@ export default function Events() {
                     )
 
                 }
-                {/* {events.map((row) => (
-                    <Grid item xs={12} sm={6} md={3} key={row.event_id}>
-                        <Card sx={{ maxWidth: 800 }}>
-                            <CardContent>
-                                <Typography gutterBottom variant="h5" component="div">
-                                    {row.event_name}
-                                </Typography>
-                                <Typography variant="body2" color="text.secondary">
-                                    {row.created_by} - {moment(row.created_date).calendar()} - {row.updated_by}
-                                </Typography>
-                            </CardContent>
-                            <CardActions>
-                                <Button size="small" onClick={handleOpen(row)}>Update</Button>
-                                <Modal
-                                    open={open}
-                                    onClose={handleClose}
-                                    aria-labelledby="modal-modal-title"
-                                    aria-describedby="modal-modal-description">
-                                    <Box sx={style}>
-                                        <Typography gutterBottom variant="h5" component="div" contentEditable="true" onInput={e => editTask(e.currentTarget.textContent, updateEvent)} suppressContentEditableWarning={true}>
-                                            {updateEvent.event_name}
-                                        </Typography>
-                                        <Typography variant="body2" color="text.secondary">
-                                            {updateEvent.created_by} - {moment(updateEvent.created_date).calendar()} - {updateEvent.updated_by}
-                                        </Typography><br></br>
-                                        <Button size="small" onClick={() => handleClick()}>Update</Button>
-                                        <Button size="small" onClick={handleClose}>Close</Button>
-                                    </Box>
-                                </Modal>
-                                <Button size="small" onClick={openInfoModal()} >More Info</Button>
-                            </CardActions>
-                        </Card>
-                    </Grid>
-                ))} */}
                 <ToastContainer
                     position="top-right"
                     autoClose={2000}
@@ -256,12 +211,7 @@ export default function Events() {
                     pauseOnHover
                     toastStyle={{ backgroundColor: "lightgreen" }}
                 />
-                {/* <Card sx={{ maxWidth: 800 }}>
-                    <Button size="small" onClick={onShow}>Add an Event</Button>
-                    {hasRender && <AddEvent />}
-                </Card> */}
             </Grid>
-
         </div>
     );
 };
