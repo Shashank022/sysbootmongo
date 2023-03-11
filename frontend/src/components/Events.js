@@ -13,6 +13,8 @@ import Modal from '@mui/material/Modal';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AddEvent from './AddEvent';
+import SearchBar from "material-ui-search-bar";
+
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -51,7 +53,11 @@ export default function Events() {
         setUpdateEvent(row);
         setNewEvent({ event: row });
     };
+    const [bar, setBar] = useState('');
 
+    const doSomethingWith = (info) => {
+        console.log("info", info);
+    }
     const handleClose = () => setOpen(false);
     // const handleModelClose = () => setOpenModel(false);
 
@@ -94,6 +100,12 @@ export default function Events() {
     if (!events) return null;
     return (
         <div className={classes.root}>
+            <SearchBar
+                value={bar}
+                onChange={(newValue) => setBar({ value: newValue })}
+                onRequestSearch={() => doSomethingWith(bar)}
+            />
+            <p></p>
             <Grid
                 container
                 spacing={2}
