@@ -43,7 +43,17 @@ export default function Events() {
     const [open, setOpen] = useState(false);
     const [newEvent, setNewEvent] = useState({ '': '' });
     const [updateEvent, setUpdateEvent] = useState({ '': '' });
+    const [hasRender, setRender] = useState(false);
 
+
+
+    const handleShow = ((event) => {
+        if (!hasRender) {
+            setRender(true)
+        } else {
+            setRender(false)
+        }
+    });
     useEffect(() => {
         axios.get('http://localhost:5022/api/events').then((response) => {
             setEvents(response.data);
@@ -113,7 +123,9 @@ export default function Events() {
                 onChange={(event) => setSearchQuery(event.target.value)}
                 className="search"
                 placeholder="Search Events...!!"
-            />
+            /><span>    </span>
+            <Button className="addevent" size="small" onClick={handleShow}>Add Event</Button>
+            {hasRender && <AddEvent />}
             <p></p>
             <Grid
                 container

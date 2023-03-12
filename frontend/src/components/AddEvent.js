@@ -1,5 +1,10 @@
+import "./AddEvent.css";
 import { useState } from "react";
 import axios from 'axios';
+import Button from '@mui/material/Button';
+import { Input } from "@mui/material";
+// import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
 
 
 function AddEvent() {
@@ -21,33 +26,34 @@ function AddEvent() {
 
     return (
         <form onSubmit={submit}>
-            <div>
-                <input
+            <div className="formGroup">
+                <Input
+                    className="trim"
                     placeholder="Event Name"
                     name="name"
                     type="text"
                     onChange={(event) => getInputs(event.target.value, event.target.name)}
                 />
-                <input
+                <Input
                     placeholder="Event Date"
                     name="date"
                     type="date"
                     onChange={(event) => getInputs(event.target.value, event.target.name)}
                 />
-                <input
+                <Input
                     placeholder="Event Team"
                     name="team"
                     type="text"
                     onChange={(event) => getInputs(event.target.value, event.target.name)}
                 />
-                <input
+                <Input
                     placeholder="Event Task"
                     name="task"
                     type="text"
                     onChange={(event) => getInputs(event.target.value, event.target.name)}
                 />
-                <button type="submit"> Submit</button>
-                <button type="reset">Reset</button>
+                <Button type="submit"> Submit</Button>
+                <Button type="reset">Reset</Button>
             </div>
         </form>
     )

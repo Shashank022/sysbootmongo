@@ -1,0 +1,15 @@
+.formGroup {
+    width: 80%;
+    height: 40px;
+    border-radius: 5px;
+    padding: 2px;
+    align-content: center;
+}
+
+.trim {
+
+    /* border: 1px solid gray; */
+    /* border-radius: 5px;
+    padding: 2px;
+    align-content: center; */
+}

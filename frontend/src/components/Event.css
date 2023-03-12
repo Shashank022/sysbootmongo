@@ -6,3 +6,11 @@
     padding: 10px;
 
 }
+
+.addevent {
+    width: 10%;
+    height: 40px;
+    border: 1px solid rgb(20, 20, 20);
+    border-radius: 10px;
+    padding: 10px;
+}
