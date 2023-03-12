@@ -62,7 +62,7 @@ export default function Events() {
 
 
     const handleOpen = row => () => {
-        // console.log("row", row);
+        console.log(newEvent);
         setOpen(true);
         setUpdateEvent(row);
         setNewEvent({ event: row });
