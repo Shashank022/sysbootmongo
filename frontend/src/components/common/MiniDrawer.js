@@ -13,10 +13,10 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
-import Events from './Events';
-import UserDetails from './UserDetails';
-import Teams from './Teams';
-import Tasks from './Tasks';
+import Events from '../Events/Events';
+import UserDetails from '../UserDetails/UserDetails';
+import Teams from '../Teams/Teams';
+import Tasks from '../Tasks/Tasks';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import { NavLink } from 'react-router-dom';
 import ImageIcon from '@mui/icons-material/Image';
@@ -25,7 +25,7 @@ import InboxIcon from '@mui/icons-material/Inbox';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import SearchBar from './SearchBar';
+// import SearchBar from './SearchBar';
 
 const drawerWidth = 240;
 
