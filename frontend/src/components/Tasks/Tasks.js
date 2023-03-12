@@ -34,9 +34,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export default function Tasks() {
     const [tasks, setTasks] = useState([]);
-    const [eventtasks, setEventtasks] = useState([]);
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(5);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);

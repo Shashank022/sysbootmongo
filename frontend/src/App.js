@@ -1,5 +1,5 @@
-import MiniDrawer from "./components/common/MiniDrawer";
-import Calender from "./components/common/Calender";
+import MiniDrawer from "./components/Common/MiniDrawer";
+import Calender from "./components/Common/Calender";
 
 function App() {
   return (
