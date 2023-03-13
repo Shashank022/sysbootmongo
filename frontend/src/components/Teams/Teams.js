@@ -10,7 +10,8 @@ import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import TablePagination from '@mui/material/TablePagination';
 import TableFooter from '@mui/material/TableFooter';
-
+import Box from '@mui/material/Box';
+import Home from "../Home";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -55,47 +56,52 @@ export default function Teams() {
     if (!teams) return null;
     return (
         <div>
-            <h2>Teams List</h2>
-            <TableContainer component={Paper}>
-                <Table sx={{ maxWidth: '100%' }} aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <StyledTableCell align="center">Team Name</StyledTableCell>
-                            <StyledTableCell align="center">Team ID</StyledTableCell>
-                            <StyledTableCell align="center">Event ID</StyledTableCell>
-                            <StyledTableCell align="center">Task ID</StyledTableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {teams
-                            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                            .map((row) => (
-                                <StyledTableRow
-                                    key={row.team_id}
-                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                                    <StyledTableCell component="th" scope="row" align="center">
-                                        {row.team_name}
-                                    </StyledTableCell>
-                                    <StyledTableCell align="center">{row.team_id}</StyledTableCell>
-                                    <StyledTableCell align="center">{row.event_id}</StyledTableCell>
-                                    <StyledTableCell align="center">{row.task_id}</StyledTableCell>
-                                </StyledTableRow>
-                            ))}
-                    </TableBody>
-                    <TableFooter sx={{ align: 'right' }} >
-                        <TableRow>
-                            <TablePagination
-                                colSpan={3}
-                                rowsPerPageOptions={[5, 10, 15, 20, 25, 100]}
-                                count={teams.length}
-                                rowsPerPage={rowsPerPage}
-                                page={page}
-                                onPageChange={handleChangePage}
-                                onRowsPerPageChange={handleChangeRowsPerPage} />
-                        </TableRow>
-                    </TableFooter>
-                </Table>
-            </TableContainer>
+            <Box component="main" sx={{ flexGrow: 2, p: 16, paddingTop: '60px' }}>
+                <Home />
+                <p></p>
+                <h2>Teams List</h2>
+                <TableContainer component={Paper}>
+                    <Table sx={{ maxWidth: '100%' }} aria-label="simple table">
+                        <TableHead>
+                            <TableRow>
+                                <StyledTableCell align="center">Team Name</StyledTableCell>
+                                <StyledTableCell align="center">Team ID</StyledTableCell>
+                                <StyledTableCell align="center">Event ID</StyledTableCell>
+                                <StyledTableCell align="center">Task ID</StyledTableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {teams
+                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                .map((row) => (
+                                    <StyledTableRow
+                                        key={row.team_id}
+                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                                        <StyledTableCell component="th" scope="row" align="center">
+                                            {row.team_name}
+                                        </StyledTableCell>
+                                        <StyledTableCell align="center">{row.team_id}</StyledTableCell>
+                                        <StyledTableCell align="center">{row.event_id}</StyledTableCell>
+                                        <StyledTableCell align="center">{row.task_id}</StyledTableCell>
+                                    </StyledTableRow>
+                                ))}
+                        </TableBody>
+                        <TableFooter sx={{ align: 'right' }} >
+                            <TableRow>
+                                <TablePagination
+                                    colSpan={3}
+                                    rowsPerPageOptions={[5, 10, 15, 20, 25, 100]}
+                                    count={teams.length}
+                                    rowsPerPage={rowsPerPage}
+                                    page={page}
+                                    onPageChange={handleChangePage}
+                                    onRowsPerPageChange={handleChangeRowsPerPage} />
+                            </TableRow>
+                        </TableFooter>
+                    </Table>
+                </TableContainer>
+            </Box>
         </div>
+
     );
 };

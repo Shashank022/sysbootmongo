@@ -14,8 +14,8 @@ import Modal from '@mui/material/Modal';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AddEvent from './AddEvent';
-// import SearchBar from "material-ui-search-bar";
-
+import Home from "../Home";
+// import MiniDrawer from "../Common/MiniDrawer";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -118,112 +118,117 @@ export default function Events() {
 
     if (!events) return null;
     return (
-        <div className={classes.root}>
-            <input
-                onChange={(event) => setSearchQuery(event.target.value)}
-                className="search"
-                placeholder="Search Events...!!"
-            /><span>    </span>
-            <Button className="addevent" size="small" onClick={handleShow}>Add Event</Button>
-            {hasRender && <AddEvent />}
-            <p></p>
-            <Grid
-                container
-                spacing={2}
-                direction="row"
-                justify="flex-start"
-                alignItems="flex-start">
-                {
-                    searchQuery.length > 0 && searched != null ? (
-                        searched.map((row) => {
-                            return (
-                                <Grid item xs={12} sm={6} md={3} key={row.event_id}>
-                                    <Card sx={{ maxWidth: 800 }}>
-                                        <CardContent>
-                                            <Typography gutterBottom variant="h5" component="div">
-                                                {row.event_name}
-                                            </Typography>
-                                            <Typography variant="body2" color="text.secondary">
-                                                {row.created_by} - {moment(row.created_date).calendar()} - {row.updated_by}
-                                            </Typography>
-                                        </CardContent>
-                                        <CardActions>
-                                            <Button size="small" onClick={handleOpen(row)}>Update</Button>
-                                            <Modal
-                                                open={open}
-                                                onClose={handleClose}
-                                                aria-labelledby="modal-modal-title"
-                                                aria-describedby="modal-modal-description">
-                                                <Box sx={style}>
-                                                    <Typography gutterBottom variant="h5" component="div" contentEditable="true" onInput={e => editTask(e.currentTarget.textContent, updateEvent)} suppressContentEditableWarning={true}>
-                                                        {updateEvent.event_name}
-                                                    </Typography>
-                                                    <Typography variant="body2" color="text.secondary">
-                                                        {updateEvent.created_by} - {moment(updateEvent.created_date).calendar()} - {updateEvent.updated_by}
-                                                    </Typography><br></br>
-                                                    <Button size="small" onClick={() => handleClick()}>Update</Button>
-                                                    <Button size="small" onClick={handleClose}>Close</Button>
-                                                </Box>
-                                            </Modal>
-                                            <Button size="small" onClick={openInfoModal()} >More Info</Button>
-                                        </CardActions>
-                                    </Card>
-                                </Grid>
-                            )
-                        })
-                    ) : (
-                        events.map((row) => {
-                            return (
-                                <Grid item xs={12} sm={6} md={3} key={row.event_id}>
-                                    <Card sx={{ maxWidth: 800 }}>
-                                        <CardContent>
-                                            <Typography gutterBottom variant="h5" component="div">
-                                                {row.event_name}
-                                            </Typography>
-                                            <Typography variant="body2" color="text.secondary">
-                                                {row.created_by} - {moment(row.created_date).calendar()} - {row.updated_by}
-                                            </Typography>
-                                        </CardContent>
-                                        <CardActions>
-                                            <Button size="small" onClick={handleOpen(row)}>Update</Button>
-                                            <Modal
-                                                open={open}
-                                                onClose={handleClose}
-                                                aria-labelledby="modal-modal-title"
-                                                aria-describedby="modal-modal-description">
-                                                <Box sx={style}>
-                                                    <Typography gutterBottom variant="h5" component="div" contentEditable="true" onInput={e => editTask(e.currentTarget.textContent, updateEvent)} suppressContentEditableWarning={true}>
-                                                        {updateEvent.event_name}
-                                                    </Typography>
-                                                    <Typography variant="body2" color="text.secondary">
-                                                        {updateEvent.created_by} - {moment(updateEvent.created_date).calendar()} - {updateEvent.updated_by}
-                                                    </Typography><br></br>
-                                                    <Button size="small" onClick={() => handleClick()}>Update</Button>
-                                                    <Button size="small" onClick={handleClose}>Close</Button>
-                                                </Box>
-                                            </Modal>
-                                            <Button size="small" onClick={openInfoModal()} >More Info</Button>
-                                        </CardActions>
-                                    </Card>
-                                </Grid>
-                            )
-                        })
-                    )
 
-                }
-                <ToastContainer
-                    position="top-right"
-                    autoClose={2000}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                    toastStyle={{ backgroundColor: "lightgreen" }}
-                />
-            </Grid>
+        <div className={classes.root}>
+            <Box component="main" sx={{ flexGrow: 2, p: 16, paddingTop: '60px' }}>
+                <Home />
+                <p></p>
+                <input
+                    onChange={(event) => setSearchQuery(event.target.value)}
+                    className="search"
+                    placeholder="Search Events...!!"
+                /><span>    </span>
+                <Button className="addevent" size="small" onClick={handleShow}>Add Event</Button>
+                {hasRender && <AddEvent />}
+                <p></p>
+                <Grid
+                    container
+                    spacing={2}
+                    direction="row"
+                    justify="flex-start"
+                    alignItems="flex-start">
+                    {
+                        searchQuery.length > 0 && searched != null ? (
+                            searched.map((row) => {
+                                return (
+                                    <Grid item xs={12} sm={6} md={3} key={row.event_id}>
+                                        <Card sx={{ maxWidth: 800 }}>
+                                            <CardContent>
+                                                <Typography gutterBottom variant="h5" component="div">
+                                                    {row.event_name}
+                                                </Typography>
+                                                <Typography variant="body2" color="text.secondary">
+                                                    {row.created_by} - {moment(row.created_date).calendar()} - {row.updated_by}
+                                                </Typography>
+                                            </CardContent>
+                                            <CardActions>
+                                                <Button size="small" onClick={handleOpen(row)}>Update</Button>
+                                                <Modal
+                                                    open={open}
+                                                    onClose={handleClose}
+                                                    aria-labelledby="modal-modal-title"
+                                                    aria-describedby="modal-modal-description">
+                                                    <Box sx={style}>
+                                                        <Typography gutterBottom variant="h5" component="div" contentEditable="true" onInput={e => editTask(e.currentTarget.textContent, updateEvent)} suppressContentEditableWarning={true}>
+                                                            {updateEvent.event_name}
+                                                        </Typography>
+                                                        <Typography variant="body2" color="text.secondary">
+                                                            {updateEvent.created_by} - {moment(updateEvent.created_date).calendar()} - {updateEvent.updated_by}
+                                                        </Typography><br></br>
+                                                        <Button size="small" onClick={() => handleClick()}>Update</Button>
+                                                        <Button size="small" onClick={handleClose}>Close</Button>
+                                                    </Box>
+                                                </Modal>
+                                                <Button size="small" onClick={openInfoModal()} >More Info</Button>
+                                            </CardActions>
+                                        </Card>
+                                    </Grid>
+                                )
+                            })
+                        ) : (
+                            events.map((row) => {
+                                return (
+                                    <Grid item xs={12} sm={6} md={3} key={row.event_id}>
+                                        <Card sx={{ maxWidth: 800 }}>
+                                            <CardContent>
+                                                <Typography gutterBottom variant="h5" component="div">
+                                                    {row.event_name}
+                                                </Typography>
+                                                <Typography variant="body2" color="text.secondary">
+                                                    {row.created_by} - {moment(row.created_date).calendar()} - {row.updated_by}
+                                                </Typography>
+                                            </CardContent>
+                                            <CardActions>
+                                                <Button size="small" onClick={handleOpen(row)}>Update</Button>
+                                                <Modal
+                                                    open={open}
+                                                    onClose={handleClose}
+                                                    aria-labelledby="modal-modal-title"
+                                                    aria-describedby="modal-modal-description">
+                                                    <Box sx={style}>
+                                                        <Typography gutterBottom variant="h5" component="div" contentEditable="true" onInput={e => editTask(e.currentTarget.textContent, updateEvent)} suppressContentEditableWarning={true}>
+                                                            {updateEvent.event_name}
+                                                        </Typography>
+                                                        <Typography variant="body2" color="text.secondary">
+                                                            {updateEvent.created_by} - {moment(updateEvent.created_date).calendar()} - {updateEvent.updated_by}
+                                                        </Typography><br></br>
+                                                        <Button size="small" onClick={() => handleClick()}>Update</Button>
+                                                        <Button size="small" onClick={handleClose}>Close</Button>
+                                                    </Box>
+                                                </Modal>
+                                                <Button size="small" onClick={openInfoModal()} >More Info</Button>
+                                            </CardActions>
+                                        </Card>
+                                    </Grid>
+                                )
+                            })
+                        )
+
+                    }
+                    <ToastContainer
+                        position="top-right"
+                        autoClose={2000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                        toastStyle={{ backgroundColor: "lightgreen" }}
+                    />
+                </Grid>
+            </Box>
         </div>
     );
 };

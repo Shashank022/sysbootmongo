@@ -13,10 +13,6 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
-import Events from '../Events/Events';
-import UserDetails from '../UserDetails/UserDetails';
-import Teams from '../Teams/Teams';
-import Tasks from '../Tasks/Tasks';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import { NavLink } from 'react-router-dom';
 import ImageIcon from '@mui/icons-material/Image';
@@ -197,16 +193,14 @@ export default function MiniDrawer() {
           </ListItemIcon>
           <ListItemText primary="Tasks" />
         </ListItem>
+        <ListItem button key="Users" component={NavLink} to="/users">
+          <ListItemIcon>
+            <InboxIcon />
+          </ListItemIcon>
+          <ListItemText primary="Users" />
+        </ListItem>
         <Divider />
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3, paddingTop: '20px' }}>
-
-        <DrawerHeader />
-        <Events />
-        <UserDetails />
-        <Teams />
-        <Tasks />
-      </Box>
     </Box>
   );
 }

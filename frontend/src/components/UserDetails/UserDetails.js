@@ -10,6 +10,8 @@ import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import TablePagination from '@mui/material/TablePagination';
 import TableFooter from '@mui/material/TableFooter';
+import Box from '@mui/material/Box';
+import Home from "../Home";
 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -55,47 +57,51 @@ export default function UserDetails() {
     if (!users) return null;
     return (
         <div>
-            <h2>User Details List</h2>
-            <TableContainer component={Paper}>
-                <Table sx={{ maxWidth: '100%' }} aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <StyledTableCell align="center">User ID</StyledTableCell>
-                            <StyledTableCell align="center">User Name</StyledTableCell>
-                            <StyledTableCell align="center">Email</StyledTableCell>
-                            <StyledTableCell align="center">Gender</StyledTableCell>
-                            <StyledTableCell align="center">Address</StyledTableCell>
-                            <StyledTableCell align="center">User Role</StyledTableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {users
-                            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                            .map((row) => (
-                                <StyledTableRow key={row.user_id}>
-                                    <StyledTableCell align="center">{row.user_id}</StyledTableCell>
-                                    <StyledTableCell align="center">{row.firstname}</StyledTableCell>
-                                    <StyledTableCell align="center">{row.email}</StyledTableCell>
-                                    <StyledTableCell align="center">{row.gender}</StyledTableCell>
-                                    <StyledTableCell align="center">{row.address}</StyledTableCell>
-                                    <StyledTableCell align="center">{row.userrole}</StyledTableCell>
-                                </StyledTableRow>
-                            ))}
-                    </TableBody>
-                    <TableFooter style={{ textAlign: "right" }} >
-                        <TableRow>
-                            <TablePagination
-                                rowsPerPageOptions={[5, 10, 15, 20, 25, 100]}
-                                component="div"
-                                count={users.length}
-                                rowsPerPage={rowsPerPage}
-                                page={page}
-                                onPageChange={handleChangePage}
-                                onRowsPerPageChange={handleChangeRowsPerPage} />
-                        </TableRow>
-                    </TableFooter>
-                </Table>
-            </TableContainer>
+            <Box component="main" sx={{ flexGrow: 2, p: 16, paddingTop: '60px' }}>
+                <Home />
+                <p></p>
+                <h2>User Details List</h2>
+                <TableContainer component={Paper}>
+                    <Table sx={{ maxWidth: '100%' }} aria-label="simple table">
+                        <TableHead>
+                            <TableRow>
+                                <StyledTableCell align="center">User ID</StyledTableCell>
+                                <StyledTableCell align="center">User Name</StyledTableCell>
+                                <StyledTableCell align="center">Email</StyledTableCell>
+                                <StyledTableCell align="center">Gender</StyledTableCell>
+                                <StyledTableCell align="center">Address</StyledTableCell>
+                                <StyledTableCell align="center">User Role</StyledTableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {users
+                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                .map((row) => (
+                                    <StyledTableRow key={row.user_id}>
+                                        <StyledTableCell align="center">{row.user_id}</StyledTableCell>
+                                        <StyledTableCell align="center">{row.firstname}</StyledTableCell>
+                                        <StyledTableCell align="center">{row.email}</StyledTableCell>
+                                        <StyledTableCell align="center">{row.gender}</StyledTableCell>
+                                        <StyledTableCell align="center">{row.address}</StyledTableCell>
+                                        <StyledTableCell align="center">{row.userrole}</StyledTableCell>
+                                    </StyledTableRow>
+                                ))}
+                        </TableBody>
+                        <TableFooter style={{ textAlign: "right" }} >
+                            <TableRow>
+                                <TablePagination
+                                    rowsPerPageOptions={[5, 10, 15, 20, 25, 100]}
+                                    component="div"
+                                    count={users.length}
+                                    rowsPerPage={rowsPerPage}
+                                    page={page}
+                                    onPageChange={handleChangePage}
+                                    onRowsPerPageChange={handleChangeRowsPerPage} />
+                            </TableRow>
+                        </TableFooter>
+                    </Table>
+                </TableContainer>
+            </Box>
         </div>
     );
 };

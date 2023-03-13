@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import "./Tasks.css";
 import axios from 'axios';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -11,6 +12,8 @@ import { styled } from '@mui/material/styles';
 import moment from 'moment';
 import TablePagination from '@mui/material/TablePagination';
 import TableFooter from '@mui/material/TableFooter';
+import Box from '@mui/material/Box';
+import Home from "../Home";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -61,45 +64,49 @@ export default function Tasks() {
     if (!tasks) return null;
     return (
         <div>
-            <h2>Tasks List</h2>
-            <TableContainer component={Paper}>
-                <Table sx={{ maxWidth: '100%' }} aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <StyledTableCell align="center">Task Name</StyledTableCell>
-                            <StyledTableCell align="center">Task Created</StyledTableCell>
-                            <StyledTableCell align="center">Task Updated</StyledTableCell>
-                            <StyledTableCell align="center">Team ID</StyledTableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {tasks
-                            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                            .map((row) => (
-                                <StyledTableRow
-                                    key={row.task_id}
-                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                                    <StyledTableCell align="center">{row.task_name}</StyledTableCell>
-                                    <StyledTableCell align="center">{moment(row.task_created).calendar()}</StyledTableCell>
-                                    <StyledTableCell align="center">{row.task_updated}</StyledTableCell>
-                                    <StyledTableCell align="center">{row.team_id}</StyledTableCell>
-                                </StyledTableRow>
-                            ))}
-                    </TableBody>
-                    <TableFooter sx={{ alignContent: 'right' }} >
-                        <TableRow>
-                            <TablePagination
-                                rowsPerPageOptions={[5, 10, 15, 20, 25, 100]}
-                                count={tasks.length}
-                                rowsPerPage={rowsPerPage}
-                                page={page}
-                                onPageChange={handleChangePage}
-                                onRowsPerPageChange={handleChangeRowsPerPage}>
-                            </TablePagination>
-                        </TableRow>
-                    </TableFooter>
-                </Table>
-            </TableContainer>
+            <Box component="main" sx={{ flexGrow: 2, p: 16, paddingTop: '60px' }}>
+                <Home />
+                <p></p>
+                <h2>Tasks List</h2>
+                <TableContainer component={Paper}>
+                    <Table sx={{ maxWidth: '100%' }} aria-label="simple table">
+                        <TableHead>
+                            <TableRow>
+                                <StyledTableCell align="center">Task Name</StyledTableCell>
+                                <StyledTableCell align="center">Task Created</StyledTableCell>
+                                <StyledTableCell align="center">Task Updated</StyledTableCell>
+                                <StyledTableCell align="center">Team ID</StyledTableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {tasks
+                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                .map((row) => (
+                                    <StyledTableRow
+                                        key={row.task_id}
+                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                                        <StyledTableCell align="center">{row.task_name}</StyledTableCell>
+                                        <StyledTableCell align="center">{moment(row.task_created).calendar()}</StyledTableCell>
+                                        <StyledTableCell align="center">{row.task_updated}</StyledTableCell>
+                                        <StyledTableCell align="center">{row.team_id}</StyledTableCell>
+                                    </StyledTableRow>
+                                ))}
+                        </TableBody>
+                        <TableFooter sx={{ alignContent: 'right' }} >
+                            <TableRow>
+                                <TablePagination
+                                    rowsPerPageOptions={[5, 10, 15, 20, 25, 100]}
+                                    count={tasks.length}
+                                    rowsPerPage={rowsPerPage}
+                                    page={page}
+                                    onPageChange={handleChangePage}
+                                    onRowsPerPageChange={handleChangeRowsPerPage}>
+                                </TablePagination>
+                            </TableRow>
+                        </TableFooter>
+                    </Table>
+                </TableContainer>
+            </Box>
         </div>
     );
 };
