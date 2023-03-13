@@ -1,11 +1,10 @@
 import MiniDrawer from "./Common/MiniDrawer";
-// import Calender from "./Common/Calender";
 
 function Home() {
     return (
 
         <div className="Home">
-            {/* <Calender /> */}
+            <h1>Welcome to Server Mgnt System</h1>
             <MiniDrawer />
         </div>
     );

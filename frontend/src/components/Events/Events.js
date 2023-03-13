@@ -25,6 +25,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const notify = () => toast("Updated the Message Sucessfully!");
+const notifyDelete = () => toast("Deleted the Message Sucessfully!");
 const style = {
     position: 'absolute',
     top: '50%',
@@ -100,6 +101,20 @@ export default function Events() {
         handleClose();
     }
 
+    function handleDelete(id) {
+        console.log(id);
+        axios.delete(`http://localhost:5022/api/event/${id}`).then((resp) => {
+            if (resp) {
+                notifyDelete();
+            }
+        }).then(() => {
+            axios.get('http://localhost:5022/api/events').then((response) => {
+                setEvents(response.data);
+            }).catch((error) => { console.log(error); });
+        })
+            .catch((error) => { console.log(error); });
+    }
+
     function openInfoModal() {
         // setOpenModel(true);
     }
@@ -153,6 +168,7 @@ export default function Events() {
                                             </CardContent>
                                             <CardActions>
                                                 <Button size="small" onClick={handleOpen(row)}>Update</Button>
+
                                                 <Modal
                                                     open={open}
                                                     onClose={handleClose}
@@ -166,9 +182,11 @@ export default function Events() {
                                                             {updateEvent.created_by} - {moment(updateEvent.created_date).calendar()} - {updateEvent.updated_by}
                                                         </Typography><br></br>
                                                         <Button size="small" onClick={() => handleClick()}>Update</Button>
+
                                                         <Button size="small" onClick={handleClose}>Close</Button>
                                                     </Box>
                                                 </Modal>
+
                                                 <Button size="small" onClick={openInfoModal()} >More Info</Button>
                                             </CardActions>
                                         </Card>
@@ -190,6 +208,7 @@ export default function Events() {
                                             </CardContent>
                                             <CardActions>
                                                 <Button size="small" onClick={handleOpen(row)}>Update</Button>
+                                                <Button size="small" onClick={() => handleDelete(row.event_id)}>Delete</Button>
                                                 <Modal
                                                     open={open}
                                                     onClose={handleClose}
@@ -203,6 +222,7 @@ export default function Events() {
                                                             {updateEvent.created_by} - {moment(updateEvent.created_date).calendar()} - {updateEvent.updated_by}
                                                         </Typography><br></br>
                                                         <Button size="small" onClick={() => handleClick()}>Update</Button>
+
                                                         <Button size="small" onClick={handleClose}>Close</Button>
                                                     </Box>
                                                 </Modal>
