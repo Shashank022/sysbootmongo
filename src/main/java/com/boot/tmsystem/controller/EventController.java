@@ -29,7 +29,7 @@ public class EventController {
         @GetMapping("/events")
         public ResponseEntity<List<Event>> getAllEvents() throws ParseException {
                 // List<Event> eventList = eventService.getLimitedEventsOnly();
-                List<Event> eventList = eventRepository.findAll().stream().limit(10).collect(Collectors.toList());
+                List<Event> eventList = eventRepository.findAll().stream().limit(12).collect(Collectors.toList());
                         return new ResponseEntity<>(eventList, HttpStatus.OK);
         }
 
@@ -39,10 +39,10 @@ public class EventController {
                 return new ResponseEntity<List<Event>>(eventList, HttpStatus.OK);
         }
 
-        @DeleteMapping("/events/{id}")
+        @DeleteMapping("/event/{id}")
         public ResponseEntity<HttpStatus> deleteEvent(@PathVariable("id") long id) {
                 eventService.deletebyId(id);
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.OK);
         }
 
         @GetMapping("/eventsondate/{startDate}")

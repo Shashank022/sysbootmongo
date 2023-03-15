@@ -13,16 +13,16 @@ import java.util.ArrayList;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document("user")
-public class User {
+@Document("userdata")
+public class UserData {
 
     @Id
     private BigInteger _id;
     private int user_id;
-    private String firstname;
-    private String lastname;
+    private String first_name;
+    private String last_name;
     private String email;
     private String gender;
-    private String address;
+    private ArrayList<Address> address;
     private String userrole;
 }
