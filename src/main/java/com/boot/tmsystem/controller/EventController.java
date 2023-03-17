@@ -1,14 +1,17 @@
 package com.boot.tmsystem.controller;
 
+import com.boot.tmsystem.customexception.EmptyInputException;
 import com.boot.tmsystem.model.Event;
 import com.boot.tmsystem.repository.EventRepository;
 import com.boot.tmsystem.service.EventService;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
+import java.util.EmptyStackException;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -54,13 +57,14 @@ public class EventController {
 
         @PostMapping("/postevent")
         public ResponseEntity<Event> postnewevent(@RequestBody Event newEvent) throws ParseException {
-                System.out.println("newEvent"+newEvent);
-                if(!Objects.isNull(newEvent)){
-                        eventRepository.save(newEvent);
-                        return new ResponseEntity<>(HttpStatus.OK);
-                }
-                return null;
+                   if(ObjectUtils.defaultIfNull(newEvent.getEvent_id(), 0)  == 0 || newEvent.getEvent_name().isEmpty()){
+                          throw new EmptyInputException("601", "Input fields are empty");
+                        }
+                eventRepository.save(newEvent);
+                return new ResponseEntity<>(HttpStatus.OK);
         }
+
+
         @PutMapping("/event/update")
         public ResponseEntity<Event> eventupdate(@RequestBody Event newEvent) throws ParseException {
                 System.out.println("newEvent"+newEvent);
